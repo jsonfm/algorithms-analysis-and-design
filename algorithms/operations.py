@@ -96,11 +96,34 @@ def school_multiplication(a, b, verbose=False):
         result.append(last_sum_digit)
 
     result = result[::-1]
-    # print()
-    # print(result)
     result = array_to_number(result)
     return result
 
 
-res = school_multiplication(5678, 1234)
-print(res)
+# res = school_multiplication(5678, 1234)
+# print(res)
+if __name__ == "__main__":
+    import matplotlib.pyplot as plt
+    import numpy as np
+    from performance import time_performance_recursive
+    from utils import generate_random_inputs
+
+    L = 100
+
+    inputs = generate_random_inputs(input_length=2, number_of_inputs=L)
+    times = time_performance_recursive(school_multiplication, inputs)
+    on_real = 1000 * np.array(times)
+
+    n = list(range(1, L))
+    coefs = np.polyfit(n, times, 2)
+    fit = np.poly1d(coefs)
+    on_ideal = 1000 * fit(n)
+
+    plt.plot(n, on_real, label="Real O(n) = $n^2$")
+    plt.plot(n, on_ideal, label="expected O(n) = $n^2$")
+    plt.grid()
+    plt.ylabel("time (ms)")
+    plt.xlabel("N length")
+    plt.title("School Multiplication Algorithm")
+    plt.legend()
+    plt.show()
