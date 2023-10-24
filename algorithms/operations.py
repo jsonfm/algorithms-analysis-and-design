@@ -1,4 +1,4 @@
-def school_multiplication(a, b, verbose=False):
+def grade_school_multiplication(a, b, verbose=False):
     """Multiplication of two integers using the standard multiplication algorithm.
        a
     x  b
@@ -100,7 +100,7 @@ def school_multiplication(a, b, verbose=False):
     return result
 
 
-# res = school_multiplication(5678, 1234)
+# res = grade_school_multiplication(5678, 1234)
 # print(res)
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
@@ -111,19 +111,19 @@ if __name__ == "__main__":
     L = 100
 
     inputs = generate_random_inputs(input_length=2, number_of_inputs=L)
-    times = time_performance_recursive(school_multiplication, inputs)
-    on_real = 1000 * np.array(times)
+    times = time_performance_recursive(grade_school_multiplication, inputs)
+    on_real = 1000 * np.array(times)  # ms
 
     n = list(range(1, L))
     coefs = np.polyfit(n, times, 2)
     fit = np.poly1d(coefs)
-    on_ideal = 1000 * fit(n)
+    on_ideal = 1000 * fit(n)  # ms
 
     plt.plot(n, on_real, label="Real O(n) = $n^2$")
     plt.plot(n, on_ideal, label="expected O(n) = $n^2$")
     plt.grid()
     plt.ylabel("time (ms)")
     plt.xlabel("N length")
-    plt.title("School Multiplication Algorithm")
+    plt.title("Grade School Multiplication Algorithm")
     plt.legend()
     plt.show()
