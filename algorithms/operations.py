@@ -118,9 +118,10 @@ if __name__ == "__main__":
     coefs = np.polyfit(n, times, 2)
     fit = np.poly1d(coefs)
     on_ideal = 1000 * fit(n)  # ms
-
-    plt.plot(n, on_real, label="Real O(n) = $n^2$")
-    plt.plot(n, on_ideal, label="expected O(n) = $n^2$")
+    str_fit = str(fit).replace("x", "n").replace(" ", "")
+    print(fit)
+    plt.plot(n, on_real, label="real O(n)")
+    plt.plot(n, on_ideal, label=f"aprox. O(n) = {str_fit}")
     plt.grid()
     plt.ylabel("time (ms)")
     plt.xlabel("N length")
